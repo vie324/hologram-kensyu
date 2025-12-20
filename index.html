@@ -3,58 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOLOGRAM Training Program</title>
+    <title>HOLOGRAM - Master Training Program (Full Roadmap)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Chosen Palette: "Hologram Pink" -->
-    <!-- Base: #FFF0F5 (Lavender Blush - Very Light Pink) -->
-    <!-- Card Bg: #FFFFFF (White) -->
-    <!-- Text: #5D4E55 (Warm Dark Gray) -->
-    <!-- Accent 1 (Perm/Brow - Short Term): #FF9EAA (Soft Salmon Pink) -->
-    <!-- Accent 2 (Extension - Long Term): #C5A3FF (Soft Lavender) -->
-    <!-- Gradient: Linear Gradient of Pinks and Lavenders for "Hologram" effect -->
-
+    <!-- Palette: Hologram Pink -->
     <style>
         body {
             background-color: #FFF0F5;
-            background-image: linear-gradient(180deg, #FFF0F5 0%, #FFF8FA 100%); /* Subtle shift */
+            background-image: linear-gradient(180deg, #FFF0F5 0%, #FFF8FA 100%);
             color: #5D4E55;
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            height: 300px;
-            margin: 0 auto;
-        }
-        @media (min-width: 768px) {
-            .chart-container { height: 350px; }
-        }
-        .tab-btn {
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        /* Gradient Text Class */
         .text-hologram {
             background: linear-gradient(90deg, #FF8FAB, #C5A3FF, #90E0EF);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .card-shadow {
+            box-shadow: 0 10px 20px -5px rgba(255, 182, 193, 0.3), 0 8px 10px -6px rgba(255, 182, 193, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
         
+        /* Interactive Elements */
+        .tab-btn { border-bottom: 3px solid transparent; transition: all 0.3s; }
         .tab-active-1 { border-color: #FF9EAA; color: #E07A88; font-weight: bold; background-color: #FFF; }
         .tab-active-2 { border-color: #C5A3FF; color: #9A75D6; font-weight: bold; background-color: #FFF; }
-        
-        .card-shadow {
-            box-shadow: 0 10px 15px -3px rgba(255, 182, 193, 0.2), 0 4px 6px -2px rgba(255, 182, 193, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
 
-        /* Custom Badges */
-        .tag-early { background-color: #FFF0F2; color: #E07A88; border: 1px solid #FFCDD5; }
-        .tag-long { background-color: #F8F5FF; color: #9A75D6; border: 1px solid #E6D6FF; }
+        /* Modal & Input */
+        .modal { transition: opacity 0.3s, visibility 0.3s; opacity: 0; visibility: hidden; }
+        .modal.open { opacity: 1; visibility: visible; }
+        .modal-content { transform: scale(0.95); transition: transform 0.3s ease-out; }
+        .modal.open .modal-content { transform: scale(1); }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5) sepia(1) saturate(5) hue-rotate(300deg); cursor: pointer; }
+
+        /* Timeline Styles */
+        .timeline-line {
+            position: absolute; left: 24px; top: 20px; bottom: 20px; width: 2px;
+            background: linear-gradient(to bottom, #FF9EAA 0%, #C5A3FF 100%); z-index: 0;
+        }
+        .timeline-point { z-index: 10; }
+        
+        /* Quiz Styles */
+        .quiz-option:checked + label {
+            background-color: #FFF0F2; border-color: #FF9EAA; color: #E07A88; font-weight: bold;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #FFB7C5; border-radius: 3px; }
     </style>
 </head>
 <body class="antialiased pb-20">
@@ -62,458 +61,557 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
         <!-- Header -->
-        <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-            <div>
-                <p class="text-xs font-bold tracking-[0.2em] text-gray-400 mb-1">TOTAL EYE SALON</p>
-                <h1 class="text-5xl font-black tracking-tighter mb-2 text-hologram" style="font-family: 'Futura', sans-serif;">HOLOGRAM</h1>
-                <p class="text-sm font-medium text-gray-500">
-                    <span class="inline-block px-2 py-0.5 rounded bg-pink-100 text-pink-500 mr-2">育成</span>
-                    Perm & Brow先行デビュー型カリキュラム
-                </p>
-            </div>
-            <div class="flex gap-4">
-                <div class="text-center px-5 py-3 bg-white rounded-2xl card-shadow border-t-4 border-[#FF9EAA]">
-                    <div class="text-[10px] text-gray-400 uppercase tracking-widest">Stage 1</div>
-                    <div class="font-bold text-[#FF9EAA] text-lg">Month 1</div>
-                    <div class="text-[10px] text-gray-500">Perm & Brow</div>
-                </div>
-                <div class="text-center px-5 py-3 bg-white rounded-2xl card-shadow border-t-4 border-[#C5A3FF]">
-                    <div class="text-[10px] text-gray-400 uppercase tracking-widest">Stage 2</div>
-                    <div class="font-bold text-[#C5A3FF] text-lg">Month 3</div>
-                    <div class="text-[10px] text-gray-500">Extension</div>
-                </div>
-            </div>
+        <header class="mb-8">
+            <p class="text-xs font-bold tracking-[0.2em] text-gray-400 mb-1">TOTAL EYE SALON</p>
+            <h1 class="text-5xl font-black tracking-tighter mb-2 text-hologram" style="font-family: 'Futura', sans-serif;">HOLOGRAM</h1>
+            <p class="text-sm font-medium text-gray-500">Perm & Brow先行デビュー型カリキュラム (Professional Edition)</p>
         </header>
 
-        <!-- Strategy Dashboard -->
-        <section class="mb-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Concept Card -->
-            <div class="col-span-1 bg-white/80 backdrop-blur-sm p-8 rounded-3xl card-shadow">
-                <h2 class="text-lg font-bold mb-6 text-gray-700 flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></span>
-                    Training Strategy
-                </h2>
-                <div class="space-y-8">
-                    <div>
-                        <h3 class="text-sm font-bold text-[#E07A88] mb-2 flex items-center gap-2">
-                            <span class="p-1 bg-pink-100 rounded-md">✨</span> First Debut (1ヶ月)
-                        </h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">
-                            <strong class="text-gray-700">まつ毛パーマ・アイブロウ</strong>を最優先で習得。
-                            1ヶ月後にデビューし、サロンワークの一員として輝き始めます。
-                        </p>
-                    </div>
-                    <div class="w-full h-px bg-gradient-to-r from-transparent via-pink-200 to-transparent"></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-[#9A75D6] mb-2 flex items-center gap-2">
-                            <span class="p-1 bg-purple-100 rounded-md">💎</span> Final Debut (3ヶ月)
-                        </h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">
-                            <strong class="text-gray-700">マツエク</strong>は焦らずじっくり。
-                            営業後の時間を使い、3ヶ月かけて高難易度技術をマスターします。
-                        </p>
+        <!-- ★ INTEGRATED MASTER DASHBOARD ★ -->
+        <section class="mb-12 bg-white/70 backdrop-blur-xl rounded-[2.5rem] p-6 lg:p-10 border border-white card-shadow relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FF9EAA] via-[#C5A3FF] to-[#90E0EF]"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <!-- LEFT COLUMN: Inputs & Key Dates -->
+                <div class="lg:col-span-4 flex flex-col gap-6 lg:border-r border-pink-50/50 pr-0 lg:pr-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-100 sticky top-4">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">🏁 Start Date</label>
+                        <input type="date" id="joinDate" class="w-full text-lg font-bold text-gray-700 bg-pink-50/30 border-b-2 border-pink-200 focus:border-[#FF9EAA] outline-none py-2 transition-colors" onchange="calculateSchedule()">
+                        <p class="text-[10px] text-gray-400 mt-2">入社日を選択すると全スケジュールが連動します</p>
+
+                        <div class="mt-8 space-y-6">
+                             <div class="relative group cursor-default">
+                                <div class="absolute inset-0 bg-[#FF9EAA] rounded-2xl blur opacity-10 group-hover:opacity-20 transition"></div>
+                                <div class="relative bg-white p-5 rounded-2xl border-l-4 border-[#FF9EAA] shadow-sm">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <span class="text-[10px] font-bold text-[#FF9EAA] uppercase tracking-wider bg-[#FFF0F2] px-2 py-1 rounded">1st Debut</span>
+                                            <h3 class="text-xl font-black text-gray-700 mt-1" id="display-goal1">--/--/--</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Perm & Brow 入客開始</p>
+                                        </div>
+                                        <div class="text-2xl">🌸</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-center relative z-10 opacity-30"><svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
+                            <div class="relative group cursor-default">
+                                <div class="absolute inset-0 bg-[#C5A3FF] rounded-2xl blur opacity-10 group-hover:opacity-20 transition"></div>
+                                <div class="relative bg-white p-5 rounded-2xl border-l-4 border-[#C5A3FF] shadow-sm">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <span class="text-[10px] font-bold text-[#C5A3FF] uppercase tracking-wider bg-[#F8F5FF] px-2 py-1 rounded">Final Debut</span>
+                                            <h3 class="text-xl font-black text-gray-700 mt-1" id="display-goal2">--/--/--</h3>
+                                            <p class="text-xs text-gray-500 mt-1">Extension 完全デビュー</p>
+                                        </div>
+                                        <div class="text-2xl">💎</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Chart -->
-            <div class="col-span-1 lg:col-span-2 bg-white/80 backdrop-blur-sm p-8 rounded-3xl card-shadow flex flex-col justify-between">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Focus Balance Timeline</h3>
-                <div class="chart-container">
-                    <canvas id="timelineChart"></canvas>
+                <!-- RIGHT COLUMN: Detailed Roadmap -->
+                <div class="lg:col-span-8">
+                    <div class="flex justify-between items-end mb-6">
+                        <h3 class="text-lg font-bold text-gray-700 flex items-center gap-2">
+                            <span class="w-2 h-6 bg-gradient-to-b from-[#FF9EAA] to-[#C5A3FF] rounded-full"></span>
+                            Detailed Roadmap (Phase 1-6)
+                        </h3>
+                        <p class="text-xs text-gray-400">2週間ごとの達成マイルストーン</p>
+                    </div>
+                    <div class="relative pl-2">
+                        <div class="timeline-line"></div>
+                        
+                        <!-- Phase 1: W1-2 -->
+                        <div class="relative flex gap-6 mb-8 group">
+                            <div class="timeline-point w-12 h-12 rounded-full bg-white border-4 border-[#FF9EAA] text-[#FF9EAA] font-bold flex items-center justify-center shrink-0 shadow-sm z-10 group-hover:scale-110 transition">01</div>
+                            <div class="flex-1 bg-white p-4 rounded-2xl shadow-sm border border-pink-50 hover:shadow-md transition">
+                                <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-[#FFF0F2] text-[#E07A88] px-2 py-1 rounded-full">Phase 1 (W1-2)</span><span class="text-xs font-bold text-gray-400" id="date-p1">--/-- ~ --/--</span></div>
+                                <h4 class="font-bold text-gray-700 mb-1">基礎構築 & マネキン習得</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">座学・法規・衛生管理の完了。Perm/Browのマネキン施術合格を目指す。</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Phase 2: W3-4 -->
+                        <div class="relative flex gap-6 mb-8 group">
+                            <div class="timeline-point w-12 h-12 rounded-full bg-white border-4 border-[#FF9EAA] text-[#FF9EAA] font-bold flex items-center justify-center shrink-0 shadow-sm z-10 group-hover:scale-110 transition">02</div>
+                            <div class="flex-1 bg-[#FFF0F2] p-4 rounded-2xl shadow-sm border border-[#FF9EAA] hover:shadow-md transition">
+                                <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-[#FF9EAA] text-white px-2 py-1 rounded-full">Phase 2 (W3-4)</span><span class="text-xs font-bold text-[#E07A88]" id="date-p2">--/-- ~ --/--</span></div>
+                                <h4 class="font-bold text-[#E07A88] mb-1">★ 1st Debut Exam (Perm/Brow)</h4>
+                                <p class="text-xs text-gray-600 leading-relaxed">モデル施術集中（30名）。合格次第<strong class="text-[#E07A88]">Perm & Browでの入客を開始</strong>する。</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Phase 3: W5-6 -->
+                        <div class="relative flex gap-6 mb-8 group">
+                            <div class="timeline-point w-12 h-12 rounded-full bg-white border-4 border-gray-300 text-gray-400 font-bold flex items-center justify-center shrink-0 shadow-sm z-10 group-hover:border-gray-400 transition">03</div>
+                            <div class="flex-1 bg-white p-4 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                                <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded-full">Phase 3 (W5-6)</span><span class="text-xs font-bold text-gray-400" id="date-p3">--/-- ~ --/--</span></div>
+                                <h4 class="font-bold text-gray-700 mb-1">Jr.サロンワーク & Ext基礎</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">日中はPerm/Brow入客。空き時間と夜にExtのマネキン装着を開始。</p>
+                            </div>
+                        </div>
+
+                        <!-- Phase 4: W7-8 -->
+                        <div class="relative flex gap-6 mb-8 group">
+                            <div class="timeline-point w-12 h-12 rounded-full bg-white border-4 border-[#C5A3FF] text-[#C5A3FF] font-bold flex items-center justify-center shrink-0 shadow-sm z-10 group-hover:scale-110 transition">04</div>
+                            <div class="flex-1 bg-white p-4 rounded-2xl shadow-sm border border-purple-50 hover:shadow-md transition">
+                                <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-[#F8F5FF] text-[#9A75D6] px-2 py-1 rounded-full">Phase 4 (W7-8)</span><span class="text-xs font-bold text-gray-400" id="date-p4">--/-- ~ --/--</span></div>
+                                <h4 class="font-bold text-gray-700 mb-1">Extモデル実践 & スピード</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">知人モデルでのExt装着開始。100本装着のタイム計測スタート（目標120分切り）。</p>
+                            </div>
+                        </div>
+
+                        <!-- Phase 5: W9-10 -->
+                        <div class="relative flex gap-6 mb-8 group">
+                            <div class="timeline-point w-12 h-12 rounded-full bg-white border-4 border-[#C5A3FF] text-[#C5A3FF] font-bold flex items-center justify-center shrink-0 shadow-sm z-10 group-hover:scale-110 transition">05</div>
+                            <div class="flex-1 bg-white p-4 rounded-2xl shadow-sm border border-purple-50 hover:shadow-md transition">
+                                <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-[#F8F5FF] text-[#9A75D6] px-2 py-1 rounded-full">Phase 5 (W9-10)</span><span class="text-xs font-bold text-gray-400" id="date-p5">--/-- ~ --/--</span></div>
+                                <h4 class="font-bold text-gray-700 mb-1">デザイン応用 & 同時施術</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">目尻長め等のデザイン分け。Perm+Brow、Perm+Extのセットメニュー効率化。</p>
+                            </div>
+                        </div>
+
+                        <!-- Phase 6: W11-12 -->
+                        <div class="relative flex gap-6 group">
+                            <div class="timeline-point w-12 h-12 rounded-full bg-white border-4 border-[#C5A3FF] text-[#C5A3FF] font-bold flex items-center justify-center shrink-0 shadow-sm z-10 group-hover:scale-110 transition">06</div>
+                            <div class="flex-1 bg-[#F8F5FF] p-4 rounded-2xl shadow-sm border border-[#C5A3FF] hover:shadow-md transition">
+                                <div class="flex justify-between items-center mb-2"><span class="text-[10px] font-bold bg-[#C5A3FF] text-white px-2 py-1 rounded-full">Phase 6 (W11-12)</span><span class="text-xs font-bold text-[#9A75D6]" id="date-p6">--/-- ~ --/--</span></div>
+                                <h4 class="font-bold text-[#9A75D6] mb-1">★ Final Debut Exam (Extension)</h4>
+                                <p class="text-xs text-gray-600 leading-relaxed">全メニュー合格。<strong class="text-[#9A75D6]">トータルアイデザイナーとして完全デビュー。</strong></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Timeline -->
+        <!-- Interactive Curriculum -->
         <section class="mb-12">
-            <!-- Tabs -->
-            <div class="flex overflow-x-auto no-scrollbar space-x-2 mb-6 p-1">
-                <button onclick="switchPhase(1)" id="tab-1" class="tab-btn px-6 py-3 text-sm font-medium rounded-full whitespace-nowrap tab-active-1 shadow-sm">
-                    Month 1: Early Debut
-                </button>
-                <button onclick="switchPhase(2)" id="tab-2" class="tab-btn px-6 py-3 text-sm font-medium rounded-full text-gray-500 whitespace-nowrap hover:bg-white/50">
-                    Month 2: OJT & Basic
-                </button>
-                <button onclick="switchPhase(3)" id="tab-3" class="tab-btn px-6 py-3 text-sm font-medium rounded-full text-gray-500 whitespace-nowrap hover:bg-white/50">
-                    Month 3: Extension Master
-                </button>
-            </div>
-
-            <!-- Content -->
-            <div id="phase-content" class="transition-all duration-300">
-                <!-- JS Injected -->
+            <div class="bg-white/90 rounded-3xl card-shadow overflow-hidden flex flex-col h-full border border-pink-50">
+                <div class="p-6 border-b border-pink-50 bg-pink-50/30 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-700">All Curriculum</h2>
+                        <p class="text-xs text-gray-400">クリックして専門知識を学習してください</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterCurriculum('all')" class="px-3 py-1 text-xs font-bold rounded-lg bg-gray-700 text-white hover:opacity-80">All</button>
+                        <button onclick="filterCurriculum('theory')" class="px-3 py-1 text-xs font-bold rounded-lg bg-gray-100 text-gray-500 hover:bg-gray-200">Theory</button>
+                        <button onclick="filterCurriculum('perm_brow')" class="px-3 py-1 text-xs font-bold rounded-lg bg-[#FFF0F2] text-[#E07A88] hover:bg-pink-100">Perm/Brow</button>
+                        <button onclick="filterCurriculum('extension')" class="px-3 py-1 text-xs font-bold rounded-lg bg-[#F8F5FF] text-[#9A75D6] hover:bg-purple-100">Extension</button>
+                    </div>
+                </div>
+                <div id="curriculum-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 bg-white/50">
+                    <!-- JS Generated -->
+                </div>
             </div>
         </section>
+    </div>
 
-        <!-- Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            <!-- Curriculum -->
-            <section class="bg-white/90 rounded-3xl card-shadow overflow-hidden flex flex-col h-full border border-pink-50">
-                <div class="p-6 border-b border-pink-50 bg-pink-50/30">
-                    <h2 class="text-lg font-bold flex items-center justify-between text-gray-700">
-                        Curriculum
-                        <div class="flex gap-1">
-                            <span class="w-2 h-2 rounded-full bg-[#FF9EAA]"></span>
-                            <span class="w-2 h-2 rounded-full bg-[#C5A3FF]"></span>
-                        </div>
-                    </h2>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <button onclick="filterCurriculum('all')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-gray-700 text-white shadow-sm hover:opacity-80 transition">All</button>
-                        <button onclick="filterCurriculum('perm_brow')" class="px-3 py-1.5 text-xs font-bold rounded-lg tag-early shadow-sm hover:bg-pink-100 transition">Stage 1 (Perm/Brow)</button>
-                        <button onclick="filterCurriculum('extension')" class="px-3 py-1.5 text-xs font-bold rounded-lg tag-long shadow-sm hover:bg-purple-100 transition">Stage 2 (Extension)</button>
+    <!-- DYNAMIC LESSON MODAL -->
+    <div id="lesson-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white w-full max-w-4xl max-h-[90vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col">
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-100 bg-white flex justify-between items-center sticky top-0 z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF9EAA] to-[#FFB7C5] flex items-center justify-center text-white font-bold text-lg">🧬</div>
+                    <div>
+                        <span id="modal-category" class="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Category</span>
+                        <h3 id="modal-title" class="text-xl font-bold text-gray-800 leading-none">Lesson Title</h3>
                     </div>
                 </div>
-                <div id="curriculum-list" class="p-6 overflow-y-auto max-h-[500px] space-y-3 bg-white/50 scroll-smooth">
-                    <!-- JS Injected -->
-                </div>
-            </section>
+                <button onclick="closeLesson()" class="w-8 h-8 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center justify-center transition">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
 
-            <!-- Debut Checklist -->
-            <section class="bg-white/90 rounded-3xl card-shadow overflow-hidden flex flex-col h-full border border-pink-50">
-                <div class="p-2 m-4 bg-gray-100/50 rounded-2xl flex">
-                    <button onclick="toggleChecklist('early')" id="check-tab-early" class="flex-1 py-3 text-sm font-bold rounded-xl shadow-sm bg-white text-[#E07A88] transition-all">
-                        First Debut (M1)
-                    </button>
-                    <button onclick="toggleChecklist('final')" id="check-tab-final" class="flex-1 py-3 text-sm font-medium text-gray-400 rounded-xl hover:text-[#9A75D6] transition-all">
-                        Final Debut (M3)
-                    </button>
+            <!-- Content Body -->
+            <div class="flex-1 overflow-y-auto bg-[#FAFAFA]" id="modal-body-container">
+                <div class="max-w-3xl mx-auto p-6 space-y-8" id="modal-content-area">
+                    <!-- Dynamic Content Injected Here -->
                 </div>
-
-                <!-- Early Checklist -->
-                <div id="checklist-early" class="px-8 pb-8 flex-1">
-                    <div class="mb-4 text-center">
-                        <span class="text-[10px] font-bold bg-[#FFF0F2] text-[#E07A88] px-2 py-1 rounded">Perm & Brow Ready?</span>
-                    </div>
-                    <div class="space-y-4" id="early-checks">
-                        <!-- JS Generated -->
-                    </div>
-                    <div class="mt-8 pt-6 border-t border-dashed border-pink-100">
-                        <div class="flex justify-between items-end mb-2">
-                            <span class="text-xs font-bold text-gray-400">PROGRESS</span>
-                            <span id="early-score" class="text-2xl font-black text-[#FF9EAA]">0%</span>
-                        </div>
-                        <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
-                            <div id="early-bar" class="h-full bg-gradient-to-r from-[#FF9EAA] to-[#FFB7C5] w-0 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(255,158,170,0.5)]"></div>
-                        </div>
-                    </div>
+                
+                <!-- Quiz Area -->
+                <div class="bg-[#FFF0F5] border-t border-pink-100 p-8">
+                    <h4 class="text-lg font-bold text-center text-[#5D4E55] mb-6 flex items-center justify-center gap-2"><span>🎓</span> PRO理解度チェック</h4>
+                    <form id="quiz-form" class="max-w-2xl mx-auto space-y-8">
+                        <!-- Dynamic Quiz Injected Here -->
+                    </form>
                 </div>
-
-                <!-- Final Checklist -->
-                <div id="checklist-final" class="px-8 pb-8 flex-1 hidden">
-                    <div class="mb-4 text-center">
-                        <span class="text-[10px] font-bold bg-[#F8F5FF] text-[#9A75D6] px-2 py-1 rounded">Full Debut Ready?</span>
-                    </div>
-                    <div class="space-y-4" id="final-checks">
-                        <!-- JS Generated -->
-                    </div>
-                    <div class="mt-8 pt-6 border-t border-dashed border-purple-100">
-                        <div class="flex justify-between items-end mb-2">
-                            <span class="text-xs font-bold text-gray-400">PROGRESS</span>
-                            <span id="final-score" class="text-2xl font-black text-[#C5A3FF]">0%</span>
-                        </div>
-                        <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
-                            <div id="final-bar" class="h-full bg-gradient-to-r from-[#C5A3FF] to-[#DCD6FC] w-0 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(197,163,255,0.5)]"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-6 border-t border-gray-100 bg-white flex justify-end gap-3 sticky bottom-0 z-10">
+                <button onclick="closeLesson()" class="px-6 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-gray-100 transition">閉じる</button>
+                <button onclick="checkQuiz()" class="px-8 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-[#FF9EAA] to-[#E07A88] shadow-lg shadow-pink-200 transition transform hover:-translate-y-1">回答を確認する</button>
+            </div>
         </div>
-
     </div>
 
     <script>
-        // --- Data ---
-        
-        const phases = {
+        // --- Global State ---
+        let currentLessonId = null;
+
+        // --- Deep Learning Content Database ---
+        const lessonData = {
             1: {
-                title: "Month 1: First Sprint",
-                goal: "Perm & Brow デビュー",
-                desc: "まずは「まつ毛パーマ」と「アイブロウ」を集中的に習得。1ヶ月でプロとしてお客様を担当できるレベルを目指します。",
-                accent: "text-[#FF9EAA]",
-                bg: "bg-[#FFF0F2]",
-                border: "border-[#FF9EAA]",
-                weeks: [
-                    { week: "Week 1", label: "基礎 & 理論", text: "衛生管理・目元の解剖学。ラッシュリフトの薬剤知識とロッド選定理論。" },
-                    { week: "Week 2", label: "実践 (Perm/Brow)", text: "相モデルでの巻き上げ練習。眉のマッピングとワックス操作。" },
-                    { week: "Week 3", label: "モデル集中", text: "1日3-4名のモデル施術。タイムトライアル開始。Extは基礎のみ。" },
-                    { week: "Week 4", label: "1st デビュー試験", text: "パーマ(60分)・眉(60分)の技術チェック。合格で即デビュー。" }
+                title: "Salon Basic / Hygiene (衛生管理と法規)",
+                category: "Theory / Basic",
+                sections: [
+                    {
+                        title: "1. 美容師法と消毒義務",
+                        content: `<p class="text-sm text-gray-600 mb-2">美容師法に基づき、アイリストは器具の消毒を徹底する義務があります。感染症（結膜炎、B型肝炎等）の拡散を防ぐため、以下の消毒法を使い分けます。</p>
+                        <ul class="list-disc list-inside text-xs text-gray-600 space-y-1 bg-white p-3 rounded-lg border border-gray-200">
+                            <li><strong>紫外線消毒:</strong> 20分以上照射（ステリライザー）。ツイザー等の金属類保管に最適。</li>
+                            <li><strong>エタノール消毒:</strong> 76.9%〜81.4%エタノールに10分間浸漬。または清拭。血液付着時は無効（次亜塩素酸Naが必要）。</li>
+                            <li><strong>煮沸消毒:</strong> 沸騰後2分間以上。タオルなどのリネン類に有効。</li>
+                        </ul>`,
+                        proTip: "ツイザーを落とした場合、お客様の前で「消毒済みの新しいもの」と交換するパフォーマンスが信頼を生みます。"
+                    },
+                    {
+                        title: "2. 手指衛生とサロンワーク",
+                        content: `<p class="text-sm text-gray-600">お客様の肌に触れる手指は最大の感染経路です。施術前、中断後、施術後は必ずアルコール消毒を行います。また、マスク着用は飛沫感染（グルーの成分吸入も含む）を防ぐために必須です。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "ツイザーの消毒として、法律で認められている紫外線照射時間は？", options: ["5分間以上", "10分間以上", "20分間以上"], correct: 2, exp: "美容師法施行規則により、紫外線消毒は20分間以上と定められています。" },
+                    { q: "血液が付着した器具の消毒に最も適切なのは？", options: ["エタノール清拭", "次亜塩素酸ナトリウム", "紫外線消毒"], correct: 1, exp: "血液感染リスクがある場合、エタノールや紫外線は不十分です。次亜塩素酸Naや煮沸が必要です。" }
                 ]
             },
             2: {
-                title: "Month 2: OJT & Basics",
-                goal: "サロンワーク + Ext基礎",
-                desc: "パーマ・眉でお客様に入客しながら、空き時間でマツエク（シングルラッシュ）の基礎技術を固めます。",
-                accent: "text-gray-500",
-                bg: "bg-white",
-                border: "border-gray-200",
-                weeks: [
-                    { week: "Week 5", label: "Jr.スタイリスト", text: "【Work】パーマ・眉入客開始。【Study】マツエクマネキン装着。" },
-                    { week: "Week 6", label: "接客 & 技術", text: "【Work】カウンセリング強化。【Study】マツエク100本装着安定化。" },
-                    { week: "Week 7", label: "Extモデル開始", text: "【Study】知人モデルでのマツエク装着。恐怖心をなくす。" },
-                    { week: "Week 8", label: "スピード強化", text: "【Study】100本装着のタイム計測。120分切り目標。" }
+                title: "Anatomy & Safety Theory (目元の構造とアレルギー)",
+                category: "Theory / Essential",
+                sections: [
+                    {
+                        title: "1. 毛髪科学とPHコントロール",
+                        content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+                            <div class="bg-white p-3 rounded border"><strong>キューティクル (毛小皮):</strong> pH4.5-5.5(弱酸性)で閉じています。アルカリ性に傾くと開き、ダメージの原因となります。前処理剤の選定が重要です。</div>
+                            <div class="bg-white p-3 rounded border"><strong>毛周期 (Hair Cycle):</strong> 「成長期・退行期・休止期」のサイクル。エクステは毛根が安定している「退行期」の毛を選定して装着するのがベストです。</div>
+                        </div>`
+                    },
+                    {
+                        title: "2. グルーアレルギーのメカニズム",
+                        content: `<p class="text-sm text-gray-600">シアノアクリレートが硬化する際に発生する<strong>「ホルムアルデヒド」</strong>がアレルゲンです。<br>揮発成分は水分に引かれる性質があるため、目が濡れていると成分が溶け込み、強烈なしみ（刺激）やアレルギー反応を引き起こします。</p>`,
+                        proTip: "お客様に「目がしみますか？」と聞く前に、涙目になっていないか、テープが浮いていないかを確認するのがプロです。"
+                    }
+                ],
+                quiz: [
+                    { q: "エクステ装着に最も適している毛周期は？", options: ["成長初期", "退行期", "休止期"], correct: 1, exp: "退行期は毛の成長が止まり、毛根が安定しているため、持続力が最も高くなります。" },
+                    { q: "グルー硬化時に発生する有害な揮発成分は？", options: ["アセトン", "ホルムアルデヒド", "ケラチン"], correct: 1, exp: "ホルムアルデヒドはシックハウス症候群の原因物質でもあり、粘膜刺激やアレルギーを引き起こします。" }
                 ]
             },
             3: {
-                title: "Month 3: Final Sprint",
-                goal: "Extension デビュー",
-                desc: "マツエクのスピードとデザイン力を完成させ、トータルアイデザイナーとして完全デビューを目指します。",
-                accent: "text-[#C5A3FF]",
-                bg: "bg-[#F8F5FF]",
-                border: "border-[#C5A3FF]",
-                weeks: [
-                    { week: "Week 9", label: "デザイン応用", text: "目尻長め・Cカール/Jカール使い分け。リペア技術。" },
-                    { week: "Week 10", label: "セットメニュー", text: "パーマ＋眉、パーマ＋エクステの同時施術フロー効率化。" },
-                    { week: "Week 11", label: "最終調整", text: "一般モデルで100本90分達成。持続力チェック。" },
-                    { week: "Week 12", label: "Final デビュー試験", text: "全メニューの技術・接客チェック。完全デビュー。" }
+                title: "Lash Lift Theory (ラッシュリフト理論)",
+                category: "Perm / Brow",
+                sections: [
+                    {
+                        title: "1. 還元と酸化の化学",
+                        content: `<ul class="list-disc list-inside text-sm text-gray-600 space-y-2">
+                            <li><strong>1剤（還元剤）:</strong> 毛髪内部の「シスチン結合（S-S結合）」を切断します。毛が軟化し、ロッドの形に変形できる状態になります。主な成分はチオグリコール酸やシステアミンです。</li>
+                            <li><strong>2剤（酸化剤）:</strong> 切断されたS-S結合を再結合させ、形を固定します。臭素酸ナトリウムや過酸化水素が使われます。</li>
+                        </ul>`
+                    },
+                    {
+                        title: "2. 軟化チェックの極意",
+                        content: `<p class="text-sm text-gray-600">軟化不足は「かからない」、過軟化は「チリつき」の原因です。テストカールを行い、毛が反発せずにロッドに沿うかを確認します。中間水洗で1剤を完全に流すことがダメージ予防の鍵です。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "1剤の役割として正しいものは？", options: ["S-S結合の切断", "S-S結合の再結合", "キューティクルのコーティング"], correct: 0, exp: "1剤（還元剤）は結合を切って毛を柔らかくします。再結合させるのは2剤（酸化剤）です。" },
+                    { q: "過軟化（置きすぎ）によって起こるトラブルは？", options: ["カールが取れやすくなる", "毛先がチリつく（ビビリ毛）", "根元が立ち上がらない"], correct: 1, exp: "過度な還元作用は毛髪のタンパク質を破壊し、チリつき（ビビリ毛）等の不可逆的なダメージを与えます。" }
+                ]
+            },
+            4: {
+                title: "Precision Winding (精密ワインディング)",
+                category: "Perm / Brow",
+                sections: [
+                    {
+                        title: "1. テンションと角度",
+                        content: `<p class="text-sm text-gray-600">ワインディング（巻き上げ）は仕上がりを9割左右します。<br><strong>垂直90度</strong>に引き上げることで最大の立ち上がり効果が得られます。緩いと上がらず、強すぎると粘膜が引っ張られ、薬剤が目に入る危険があります。</p>`
+                    },
+                    {
+                        title: "2. 毛先の処理",
+                        content: `<p class="text-sm text-gray-600">毛先がクロスしたり折れたまま2剤を塗布すると、その形で固定されます。爪楊枝や専用ツールを使い、1本1本が平行になるようにセパレートします。</p>`,
+                        proTip: "目頭・目尻の産毛を巻き込み忘れると、仕上がりのクオリティが下がります。テープワークでまぶたを引き上げ、全ての毛をキャッチしましょう。"
+                    }
+                ],
+                quiz: [
+                    { q: "ワインディング時に最も注意すべき安全管理は？", options: ["グルーを大量に使う", "粘膜がめくれていないか確認する", "短時間で終わらせる"], correct: 1, exp: "テンションをかけすぎて粘膜がめくれる（リフトする）と、薬剤が眼球に付着し、失明等の重大事故に繋がります。" },
+                    { q: "毛先が折れたまま2剤を塗布するとどうなる？", options: ["自然に直る", "折れた形で固定される", "カールが強くなる"], correct: 1, exp: "2剤は「形を固定する」作用があるため、折れた状態で固定されてしまいます。" }
+                ]
+            },
+            5: {
+                title: "Eyebrow Mapping (黄金比と骨格診断)",
+                category: "Perm / Brow",
+                sections: [
+                    {
+                        title: "1. 3つの基本ポイント",
+                        content: `<ul class="text-sm text-gray-600 space-y-1">
+                            <li><strong>眉頭:</strong> 小鼻のくぼみの真上。寄りすぎると厳しく、離れると抜けた印象に。</li>
+                            <li><strong>眉山:</strong> 黒目の外側〜目尻の間。骨格の高い位置。顔の印象を決める重要ポイント。</li>
+                            <li><strong>眉尻:</strong> 小鼻と目尻を結んだ延長線上。眉頭より下がらないこと（下がると困り顔になる）。</li>
+                        </ul>`
+                    },
+                    {
+                        title: "2. 筋肉の動きを読む",
+                        content: `<p class="text-sm text-gray-600">目を開けた時、笑った時に「表情筋（前頭筋・皺眉筋）」がどう動くかを確認します。静止画だけでなく、動いた時にも美しいデザインを作ることがプロの仕事です。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "眉尻の位置として不適切なのは？", options: ["小鼻と目尻の延長線上", "眉頭よりも下がった位置", "眉山よりも外側"], correct: 1, exp: "眉尻が眉頭より下がると、顔全体がたるんで見えたり、困り顔の印象を与えます。" },
+                    { q: "眉デザインに影響を与える主な筋肉は？", options: ["咬筋", "眼輪筋と前頭筋", "胸鎖乳突筋"], correct: 1, exp: "眉を上げる前頭筋や、寄せる皺眉筋、目を閉じる眼輪筋の動きを計算に入れる必要があります。" }
+                ]
+            },
+            6: {
+                title: "Waxing Technique (ワックス脱毛技術)",
+                category: "Perm / Brow",
+                sections: [
+                    {
+                        title: "1. 温度管理と塗布",
+                        content: `<p class="text-sm text-gray-600">ワックスは蜂蜜状の粘度が最適です。サラサラすぎると熱すぎて火傷の原因になり、固すぎると毛に絡みません。<br>塗布時は<strong>「毛流れに沿って」</strong>圧をかけながら塗り込み、毛根までワックスを行き渡らせます。</p>`
+                    },
+                    {
+                        title: "2. 剥離（スキンピーリング）防止",
+                        content: `<p class="text-sm text-gray-600">剥がす際は、必ず<strong>「皮膚をピンと張り（テンション）」</strong>、<strong>「毛流れに逆らって」</strong>、<strong>「肌と平行に」</strong>素早く剥がします。上に引っ張り上げると皮膚が剥離するリスクが高まります。</p>`,
+                        proTip: "レチノール系化粧品の使用歴確認は必須です。皮膚が薄くなっており、高確率で剥離事故が起きます。"
+                    }
+                ],
+                quiz: [
+                    { q: "ワックスを剥がす時の正しい方向は？", options: ["毛流れに沿って", "毛流れに逆らって", "円を描くように"], correct: 1, exp: "毛流れに逆らうことで、毛根からしっかりと抜き取ることができます。" },
+                    { q: "剥離（皮膚めくれ）を防ぐための最重要動作は？", options: ["ワックスを厚く塗る", "ゆっくり剥がす", "皮膚にテンションをかける（張る）"], correct: 2, exp: "皮膚がたるんだ状態で剥がすと、皮膚ごと引っ張られて剥離します。必ず指で皮膚を張りましょう。" }
+                ]
+            },
+            7: {
+                title: "Tweezer Work (ツイザーワーク)",
+                category: "Extension",
+                sections: [
+                    {
+                        title: "1. 左手の安定性（アイソレーション）",
+                        content: `<p class="text-sm text-gray-600">エクステ技術の8割は「左手（かき分け）」で決まります。狙った自まつ毛1本以外を完全に隔離し、グルーが硬化するまで微動だにせずキープする筋力と集中力が必要です。薬指や小指を額（または頬骨）に固定し、支点を作ります。</p>`
+                    },
+                    {
+                        title: "2. 安全な角度",
+                        content: `<p class="text-sm text-gray-600">ツイザーの先端は常に眼球と平行、または外側を向くように意識します。誤って手が滑った際、先端がお客様の目に向かわないようなポジション取りを徹底してください。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "エクステ施術における「アイソレーション」の意味は？", options: ["まつ毛を洗浄すること", "1本の自まつ毛を隔離すること", "グルーを乾かすこと"], correct: 1, exp: "Isolation（隔離）。他の毛を巻き込まないよう、装着する1本だけを分ける技術です。" },
+                    { q: "ツイザーを安定させるために最も重要なのは？", options: ["息を止める", "指による支点（フィンガーレスト）", "座る椅子を高くする"], correct: 1, exp: "おでこや頬に薬指・小指を添えて支点を作ることで、手ブレを防ぎます。" }
+                ]
+            },
+            8: {
+                title: "Glue Control (グルーコントロール)",
+                category: "Extension",
+                sections: [
+                    {
+                        title: "1. 湿度と硬化速度",
+                        content: `<p class="text-sm text-gray-600">グルーは空気中の水分と反応して硬化します。<br><strong>湿度が高い（夏・雨天）＝ 硬化が速い。</strong><br><strong>湿度が低い（冬・乾燥）＝ 硬化が遅い。</strong><br>プロは室温25度、湿度50-60%をキープし、季節によってグルーの種類や量を調整します。</p>`
+                    },
+                    {
+                        title: "2. 適正量と玉の大きさ",
+                        content: `<p class="text-sm text-gray-600">グルーの量は「微細な玉」ができる程度が基本です。多すぎると隣の毛を巻き込み（白化・違和感）、少なすぎると硬化前に乾いてしまい（仮着）、ポロリと取れる原因になります。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "サロンの湿度が極端に低い（乾燥している）場合、グルーはどうなる？", options: ["硬化が速くなる", "硬化が遅くなる", "変化しない"], correct: 1, exp: "水分が少ないため化学反応が遅れ、硬化速度が遅くなります。硬化不良や白化の原因になります。" },
+                    { q: "グルーが多すぎる場合に起こる現象は？", options: ["持続力が上がる", "隣の毛とくっつく（スティック）", "カールが強くなる"], correct: 1, exp: "余分なグルーが隣の毛を巻き込み、成長を阻害したり、瞬きの違和感を生みます。" }
+                ]
+            },
+            9: {
+                title: "Single Lash Application (シングル装着技術)",
+                category: "Extension",
+                sections: [
+                    {
+                        title: "1. 根元距離 0.5〜1.0mm",
+                        content: `<p class="text-sm text-gray-600">皮膚に触れてはいけませんが、離れすぎてもいけません。<br><strong>近すぎる：</strong>チクチク感、アレルギー、炎症のリスク。<br><strong>離れすぎ：</strong>リフトしやすく、自まつ毛の重みで垂れ下がる。デザインが崩れる。<br>この絶妙な距離を全数一定に保つのがプロの技術です。</p>`
+                    },
+                    {
+                        title: "2. 装着角度と方向",
+                        content: `<p class="text-sm text-gray-600">自まつ毛の生え癖に関わらず、エクステは「放射状（扇形）」に広がるように装着します。目頭は鼻筋側へ、目尻は耳側へ流すことで、美しい扇形を作ります。</p>`,
+                        proTip: "自まつ毛の横に添える「サイド付け」と、上に乗せる「上付け」を使い分け、癖毛を補正しましょう。"
+                    }
+                ],
+                quiz: [
+                    { q: "エクステを皮膚（まぶた）に接着してはいけない理由は？", options: ["取れやすくなるから", "グルーのコストがかかるから", "アレルギーや皮膚炎の原因になるから"], correct: 2, exp: "グルーは雑貨扱いであり、化粧品ではありません。皮膚への直接付着は絶対NGです。" },
+                    { q: "理想的なエクステの仕上がり方向は？", options: ["全て垂直", "ランダム", "放射状（扇形）"], correct: 2, exp: "目頭から目尻にかけて放射状に広がることで、目が大きく美しく見えます。" }
+                ]
+            },
+            10: {
+                title: "Removal & Repair (オフとリペア)",
+                category: "Extension",
+                sections: [
+                    {
+                        title: "1. リムーバーの使い分け",
+                        content: `<ul class="text-sm text-gray-600 space-y-1">
+                            <li><strong>クリームタイプ:</strong> 液垂れしにくく、全オフに最適。安全性が高い。</li>
+                            <li><strong>ジェルタイプ:</strong> 浸透が早いが液垂れリスクあり。ポイントオフやリペア向き。</li>
+                        </ul><p class="text-xs mt-1">※アセトンを含むものは揮発性が高く目に沁みやすいため、取り扱いに十分注意が必要です。</p>`
+                    },
+                    {
+                        title: "2. リペア（付け足し）の判断",
+                        content: `<p class="text-sm text-gray-600">伸びてよれた毛、根元が浮いている毛だけをピンポイントで外し（バナナピーリング法など）、新しい毛を付け足します。残せる毛と外すべき毛の選定眼が、仕上がりの美しさと持続力を決めます。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "全オフ（全てのまつ毛を外す）に最も適したリムーバーは？", options: ["リキッドタイプ", "ジェルタイプ", "クリームタイプ"], correct: 2, exp: "クリームタイプは粘度が高く、体温で溶けても目に入りにくいため、全体に塗布する全オフに最も安全です。" },
+                    { q: "リペア時、外すべきエクステは？", options: ["つけたばかりの毛", "根元が浮いている・伸びきった毛", "まっすぐついている毛"], correct: 1, exp: "根元が浮いている毛は外れやすく、伸びた毛はバラつきの原因になります。これらを整理してから付け足します。" }
+                ]
+            },
+            11: {
+                title: "Total Design (似合わせデザイン)",
+                category: "Extension",
+                sections: [
+                    {
+                        title: "1. 目の形別デザイン",
+                        content: `<ul class="text-sm text-gray-600 space-y-1">
+                            <li><strong>一重・奥二重:</strong> 瞼の重みで押されるため、強めのカール（D/Lカール）で黒目を出す。または長さを出す。</li>
+                            <li><strong>つり目:</strong> 目尻を下げるタレ目風デザイン（目尻Jカール、中央Cカール）で印象を和らげる。</li>
+                            <li><strong>離れ目:</strong> 目頭〜中央にポイントを置き、求心的なデザインにする。</li>
+                        </ul>`
+                    },
+                    {
+                        title: "2. ミックス技術（レイヤリング）",
+                        content: `<p class="text-sm text-gray-600">全て同じ長さで付けると「不自然なつけまつげ」のようになります。人間のまつ毛は層になっているため、あえて1-2mm異なる長さをミックスして装着することで、密度がありつつ抜け感のある立体的な仕上がりになります。</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "「つり目」を優しく見せたい場合の提案として適切なのは？", options: ["目尻に強いカール（Dカール）をつける", "目尻に緩いカール（Jカール）で長さを出す", "全体を短くする"], correct: 1, exp: "目尻のカールを緩めて下向きに流す（タレ目風）ことで、つり目のキツさを緩和できます。" },
+                    { q: "より自然で立体的な仕上がりにするためのテクニックは？", options: ["全て同じ長さにする", "太い毛だけを使う", "複数の長さをミックスする"], correct: 2, exp: "ランダムな長さを混ぜることで、自まつ毛のような自然な立体感が生まれます。" }
                 ]
             }
         };
 
-        const curriculum = [
-            { id: 1, type: "theory", title: "Salon Basic / Hygiene", detail: "HOLOGRAMの接客指針・衛生管理" },
-            { id: 2, type: "theory", title: "Anatomy & Safety", detail: "目元の構造・アレルギー・トラブル対応" },
-            { id: 3, type: "perm_brow", title: "Lash Lift Theory", detail: "還元・酸化・pH・ロッド選定" },
-            { id: 4, type: "perm_brow", title: "Precision Winding", detail: "正確で美しい巻き上げ技術" },
-            { id: 5, type: "perm_brow", title: "Eyebrow Mapping", detail: "骨格診断と黄金比デザイン" },
-            { id: 6, type: "perm_brow", title: "Waxing Technique", detail: "ワックス温度管理・スパチュラ操作" },
-            { id: 7, type: "extension", title: "Tweezer Work", detail: "かき分けと装着の安定性" },
-            { id: 8, type: "extension", title: "Glue Control", detail: "適正量と硬化速度の調整" },
-            { id: 9, type: "extension", title: "Single Lash App", detail: "100本装着フロー・方向付け" },
-            { id: 10, type: "extension", title: "Removal & Repair", detail: "安全なオフ・リペア（付け足し）" },
-            { id: 11, type: "extension", title: "Total Design", detail: "似合わせデザイン提案" }
-        ];
-
-        const checkItems = {
-            early: [
-                "座学テスト合格 (90点以上)",
-                "【Perm】ロッド選定 正答率100%",
-                "【Perm】巻き上げ 20分以内",
-                "【Perm】モデル20名 完了",
-                "【Brow】マッピング 10分以内",
-                "【Brow】ワックス 赤み・剥離なし",
-                "【Brow】モデル10名 完了",
-                "1st デビュー試験 合格"
-            ],
-            final: [
-                "【Ext】安全なテーピング",
-                "【Ext】100本装着 90分以内(オフ込)",
-                "【Ext】産毛巻き込みゼロ",
-                "【Ext】持続力3週間以上",
-                "【Ext】デザイン提案・カウンセリング",
-                "セットメニュー同時施術フロー",
-                "全メニュートラブル対応理解",
-                "Final デビュー試験 合格"
-            ]
-        };
-
-        // --- Init ---
-        document.addEventListener('DOMContentLoaded', () => {
-            renderChart();
-            renderPhase(1);
-            renderCurriculum('all');
-            renderChecklists();
-        });
-
-        // --- Chart Logic ---
-        function renderChart() {
-            const ctx = document.getElementById('timelineChart').getContext('2d');
+        // --- Schedule & Logic Functions ---
+        function calculateSchedule() {
+            const input = document.getElementById('joinDate').value;
+            if(!input) return;
+            const start = new Date(input);
+            const goal1 = new Date(start); goal1.setDate(start.getDate()+28);
+            const goal2 = new Date(start); goal2.setDate(start.getDate()+84);
+            const fmt = d => `${d.getFullYear()}/${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getDate().toString().padStart(2,'0')}`;
+            const sFmt = d => `${d.getMonth()+1}/${d.getDate()}`;
+            document.getElementById('display-goal1').innerText = fmt(goal1);
+            document.getElementById('display-goal2').innerText = fmt(goal2);
             
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11', 'W12'],
-                    datasets: [
-                        {
-                            label: 'Perm & Brow (First Stage)',
-                            data: [8, 9, 10, 10, 4, 4, 4, 4, 4, 4, 4, 4], 
-                            backgroundColor: '#FF9EAA',
-                            borderRadius: 6,
-                            borderSkipped: false,
-                        },
-                        {
-                            label: 'Extension (Final Stage)',
-                            data: [1, 1, 1, 1, 6, 7, 8, 8, 9, 9, 10, 10], 
-                            backgroundColor: '#C5A3FF',
-                            borderRadius: 6,
-                            borderSkipped: false,
-                        }
-                    ]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    responsive: true,
-                    scales: {
-                        x: { stacked: true, grid: { display: false } },
-                        y: { 
-                            stacked: true, 
-                            display: false,
-                            max: 15
-                        }
-                    },
-                    plugins: {
-                        legend: { 
-                            position: 'bottom',
-                            labels: {
-                                usePointStyle: true,
-                                boxWidth: 8,
-                                font: { size: 11 }
-                            }
-                        }
-                    }
-                }
-            });
+            const add = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
+            document.getElementById('date-p1').innerText = `${sFmt(start)}~${sFmt(add(start,13))}`;
+            document.getElementById('date-p2').innerText = `${sFmt(add(start,14))}~${sFmt(add(start,27))}`;
+            document.getElementById('date-p3').innerText = `${sFmt(add(start,28))}~${sFmt(add(start,41))}`;
+            document.getElementById('date-p4').innerText = `${sFmt(add(start,42))}~${sFmt(add(start,55))}`;
+            document.getElementById('date-p5').innerText = `${sFmt(add(start,56))}~${sFmt(add(start,69))}`;
+            document.getElementById('date-p6').innerText = `${sFmt(add(start,70))}~${sFmt(add(start,83))}`;
         }
 
-        // --- Tab Logic ---
-        function switchPhase(id) {
-            [1, 2, 3].forEach(i => {
-                const btn = document.getElementById(`tab-${i}`);
-                btn.className = 'tab-btn px-6 py-3 text-sm font-medium rounded-full whitespace-nowrap transition-all shadow-sm ';
-                
-                if (i === id) {
-                    if (id === 1) btn.classList.add('tab-active-1');
-                    else if (id === 3) btn.classList.add('tab-active-2');
-                    else btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300', 'font-bold');
-                } else {
-                    btn.classList.add('text-gray-400', 'hover:bg-white/60');
-                }
-            });
-            renderPhase(id);
-        }
-
-        function renderPhase(id) {
-            const data = phases[id];
-            const container = document.getElementById('phase-content');
-            
-            // Generate content
-            let html = `
-                <div class="bg-white/80 backdrop-blur-md p-6 rounded-3xl card-shadow border border-white mb-4">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                        <div>
-                            <h3 class="text-xl font-bold ${data.accent}">${data.title}</h3>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">${data.goal}</p>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-2 md:mt-0 md:max-w-md text-right leading-relaxed">${data.desc}</p>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            `;
-            
-            data.weeks.forEach(w => {
-                html += `
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-pink-50 hover:shadow-md transition group">
-                        <div class="text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">${w.week}</div>
-                        <div class="font-bold text-sm mb-2 text-gray-700 group-hover:text-pink-500 transition-colors">${w.label}</div>
-                        <p class="text-xs text-gray-500 leading-relaxed">${w.text}</p>
-                    </div>
-                `;
-            });
-            html += `</div></div>`;
-            
-            container.style.opacity = '0';
-            container.style.transform = 'translateY(10px)';
-            setTimeout(() => {
-                container.innerHTML = html;
-                container.style.opacity = '1';
-                container.style.transform = 'translateY(0)';
-            }, 200);
-        }
-
-        // --- Filter Logic ---
-        function filterCurriculum(type) {
-            renderCurriculum(type);
-        }
-
-        function renderCurriculum(filter) {
+        function filterCurriculum(filter) {
             const list = document.getElementById('curriculum-list');
             list.innerHTML = '';
             
-            const filtered = filter === 'all' ? curriculum : curriculum.filter(c => c.type === filter);
-            
+            const allItems = [
+                {id:1, type:'theory', t:'Salon Basic / Hygiene', d:'接客指針・衛生管理'},
+                {id:2, type:'theory', t:'Anatomy & Safety', d:'目元の構造・アレルギー'},
+                {id:3, type:'perm_brow', t:'Lash Lift Theory', d:'還元・酸化・pH'},
+                {id:4, type:'perm_brow', t:'Precision Winding', d:'巻き上げ技術'},
+                {id:5, type:'perm_brow', t:'Eyebrow Mapping', d:'骨格診断・黄金比'},
+                {id:6, type:'perm_brow', t:'Waxing Technique', d:'ワックス操作・剥離防止'},
+                {id:7, type:'extension', t:'Tweezer Work', d:'かき分け・安定性'},
+                {id:8, type:'extension', t:'Glue Control', d:'適正量・硬化速度'},
+                {id:9, type:'extension', t:'Single Lash App', d:'装着フロー・方向'},
+                {id:10, type:'extension', t:'Removal & Repair', d:'オフ・リペア技術'},
+                {id:11, type:'extension', t:'Total Design', d:'似合わせ提案'}
+            ];
+
+            const filtered = filter === 'all' ? allItems : allItems.filter(i => i.type === filter);
+
             filtered.forEach(item => {
-                let badge = "";
-                let itemClass = "bg-white";
-                
-                if(item.type === 'theory') {
-                    badge = `<span class="text-[10px] bg-gray-100 text-gray-500 px-2 py-1 rounded-md">Theory</span>`;
-                }
-                if(item.type === 'perm_brow') {
-                    badge = `<span class="text-[10px] bg-[#FFF0F2] text-[#FF9EAA] px-2 py-1 rounded-md font-bold">Stage 1</span>`;
-                    itemClass = "bg-pink-50/20";
-                }
-                if(item.type === 'extension') {
-                    badge = `<span class="text-[10px] bg-[#F8F5FF] text-[#C5A3FF] px-2 py-1 rounded-md font-bold">Stage 2</span>`;
-                    itemClass = "bg-purple-50/20";
-                }
+                let bg = item.type === 'theory' ? 'bg-gray-50' : (item.type === 'perm_brow' ? 'bg-[#FFF0F2]' : 'bg-[#F8F5FF]');
+                let border = item.type === 'theory' ? 'border-gray-200' : (item.type === 'perm_brow' ? 'border-pink-200' : 'border-purple-200');
+                let badgeColor = item.type === 'theory' ? 'text-gray-500' : (item.type === 'perm_brow' ? 'text-[#E07A88]' : 'text-[#9A75D6]');
 
                 const el = document.createElement('div');
-                el.className = `${itemClass} p-4 rounded-2xl border border-transparent hover:border-pink-100 transition duration-200 flex flex-col group`;
+                el.className = `${bg} border ${border} p-4 rounded-2xl cursor-pointer hover:shadow-lg hover:-translate-y-1 transition duration-200 group relative overflow-hidden`;
+                el.onclick = () => openLesson(item.id);
                 el.innerHTML = `
-                    <div class="flex justify-between items-start mb-1">
-                        <h4 class="font-bold text-sm text-gray-700 group-hover:text-pink-500 transition">${item.title}</h4>
-                        ${badge}
-                    </div>
-                    <p class="text-xs text-gray-500">${item.detail}</p>
+                    <div class="absolute top-0 right-0 bg-white/50 px-2 py-1 rounded-bl-lg text-[10px] font-bold ${badgeColor} backdrop-blur-sm">Start Lesson</div>
+                    <h4 class="font-bold text-sm text-gray-700 mb-1 group-hover:underline">${item.t}</h4>
+                    <p class="text-xs text-gray-500">${item.d}</p>
                 `;
                 list.appendChild(el);
             });
         }
 
-        // --- Checklist Logic ---
-        function toggleChecklist(type) {
-            const earlyTab = document.getElementById('check-tab-early');
-            const finalTab = document.getElementById('check-tab-final');
-            const earlyContent = document.getElementById('checklist-early');
-            const finalContent = document.getElementById('checklist-final');
+        function openLesson(id) {
+            currentLessonId = id;
+            const data = lessonData[id];
+            if (!data) return;
 
-            if (type === 'early') {
-                earlyTab.classList.replace('text-gray-400', 'text-[#E07A88]');
-                earlyTab.classList.add('bg-white', 'shadow-sm');
-                finalTab.classList.replace('text-[#9A75D6]', 'text-gray-400');
-                finalTab.classList.remove('bg-white', 'shadow-sm');
+            document.getElementById('modal-category').innerText = data.category;
+            document.getElementById('modal-title').innerText = data.title;
 
-                earlyContent.classList.remove('hidden');
-                finalContent.classList.add('hidden');
-            } else {
-                finalTab.classList.replace('text-gray-400', 'text-[#9A75D6]');
-                finalTab.classList.add('bg-white', 'shadow-sm');
-                earlyTab.classList.replace('text-[#E07A88]', 'text-gray-400');
-                earlyTab.classList.remove('bg-white', 'shadow-sm');
-
-                finalContent.classList.remove('hidden');
-                earlyContent.classList.add('hidden');
-            }
-        }
-
-        function renderChecklists() {
-            ['early', 'final'].forEach(type => {
-                const container = document.getElementById(`${type}-checks`);
-                const items = checkItems[type];
-                const accentColor = type === 'early' ? 'accent-pink-400' : 'accent-purple-400';
-                
-                items.forEach((item, index) => {
-                    const div = document.createElement('label');
-                    div.className = "flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 cursor-pointer hover:border-pink-200 transition group";
-                    div.innerHTML = `
-                        <input type="checkbox" id="${type}-${index}" class="w-5 h-5 ${accentColor} rounded border-gray-300" onchange="calcScore('${type}')">
-                        <span class="text-sm text-gray-600 font-medium group-hover:text-gray-800 transition">${item}</span>
-                    `;
-                    container.appendChild(div);
-                });
-            });
-        }
-
-        function calcScore(type) {
-            const container = document.getElementById(`${type}-checks`);
-            const checks = container.querySelectorAll('input[type="checkbox"]');
-            const checked = Array.from(checks).filter(c => c.checked).length;
-            const pct = Math.round((checked / checks.length) * 100);
+            const contentArea = document.getElementById('modal-content-area');
+            contentArea.innerHTML = ''; 
             
-            document.getElementById(`${type}-score`).innerText = `${pct}%`;
-            document.getElementById(`${type}-bar`).style.width = `${pct}%`;
+            data.sections.forEach(sec => {
+                let html = `<section class="bg-white p-6 rounded-3xl card-shadow animate-fade-in-up">
+                    <h4 class="text-lg font-bold text-[#5D4E55] mb-4 flex items-center gap-2"><span class="text-[#FF9EAA]">●</span> ${sec.title}</h4>
+                    <div>${sec.content}</div>`;
+                
+                if (sec.proTip) {
+                    html += `<div class="mt-4 bg-[#F0FDF4] border border-[#BBF7D0] p-4 rounded-xl">
+                        <p class="text-[10px] font-bold text-[#166534] uppercase tracking-wide mb-1">PRO ADVICE</p>
+                        <p class="text-sm text-[#14532D] leading-relaxed italic">${sec.proTip}</p>
+                    </div>`;
+                }
+                html += `</section>`;
+                contentArea.innerHTML += html;
+            });
+
+            const quizForm = document.getElementById('quiz-form');
+            quizForm.innerHTML = '';
+            data.quiz.forEach((q, idx) => {
+                let opts = '';
+                q.options.forEach((opt, oIdx) => {
+                    opts += `<div class="flex-1"><input type="radio" name="q${idx}" id="q${idx}-${oIdx}" value="${oIdx === q.correct ? 'correct' : 'wrong'}" class="quiz-option hidden"><label for="q${idx}-${oIdx}" class="block text-center text-sm p-3 rounded-lg border border-gray-200 cursor-pointer hover:border-pink-200 transition bg-white">${opt}</label></div>`;
+                });
+                
+                quizForm.innerHTML += `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm">
+                        <p class="text-sm font-bold text-gray-800 mb-3"><span class="text-[#FF9EAA]">Q${idx+1}.</span> ${q.q}</p>
+                        <div class="flex flex-col sm:flex-row gap-2">${opts}</div>
+                        <p class="text-xs text-red-500 mt-2 hidden" id="feedback-q${idx}">解説：${q.exp}</p>
+                    </div>`;
+            });
+
+            document.getElementById('lesson-modal').classList.add('open');
         }
 
+        function closeLesson() {
+            document.getElementById('lesson-modal').classList.remove('open');
+        }
+
+        function checkQuiz() {
+            const data = lessonData[currentLessonId];
+            let score = 0;
+            let total = data.quiz.length;
+
+            data.quiz.forEach((q, idx) => {
+                const feedback = document.getElementById(`feedback-q${idx}`);
+                feedback.classList.remove('hidden');
+                
+                const checked = document.querySelector(`input[name="q${idx}"]:checked`);
+                if (checked && checked.value === 'correct') score++;
+            });
+
+            if(score === total) alert("Perfect! プロフェッショナルな理解度です。");
+            else alert(`${score}/${total} 正解です。解説を読んで復習しましょう。`);
+        }
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCurriculum('all');
+            document.getElementById('joinDate').valueAsDate = new Date();
+            calculateSchedule();
+        });
     </script>
 </body>
 </html>
